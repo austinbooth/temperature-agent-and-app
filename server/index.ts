@@ -13,7 +13,7 @@ const Temperature = mongoose.model('Temperature', temperatureSchema);
 
 const privateKey = fs.readFileSync('../private_key.pem', 'utf8');
 
-app.post('/api/temperature', async (req: express.Request, res: express.Response) => {
+app.post('/api/temperature', async (req, res) => {
   try {
     const encryptedData = req.body.data;
     const decryptedData = crypto.privateDecrypt(privateKey, Buffer.from(encryptedData, 'base64')).toString();
@@ -27,6 +27,18 @@ app.post('/api/temperature', async (req: express.Request, res: express.Response)
   } catch (error) {
     res.status(500).send('Decryption or saving error.');
   }
+});
+
+app.get('/api/temperature/recent/:deviceId', async (req, res) => {
+  const { deviceId } = req.params;
+  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+
+  const recentData = await Temperature.find({
+      deviceId,
+      timestamp: { $gte: fiveMinutesAgo }
+  }).sort({ timestamp: -1 });
+
+  res.send(recentData);
 });
 
 const PORT = 5555;
