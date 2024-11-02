@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost:27017/temperatureDB');
 
 const Temperature = mongoose.model('Temperature', temperatureSchema);
 
-const privateKey = fs.readFileSync('private_key.pem', 'utf8');
+const privateKey = fs.readFileSync('../private_key.pem', 'utf8');
 
 app.post('/api/temperature', async (req: express.Request, res: express.Response) => {
   try {
@@ -19,8 +19,8 @@ app.post('/api/temperature', async (req: express.Request, res: express.Response)
     const decryptedData = crypto.privateDecrypt(privateKey, Buffer.from(encryptedData, 'base64')).toString();
     const payload = JSON.parse(decryptedData);
 
-    const { id, temperature } = payload;
-    const temperatureData = new Temperature({ deviceId: id, temperature });
+    const { id, temp } = payload;
+    const temperatureData = new Temperature({ deviceId: id, temperature: temp });
     await temperatureData.save();
     
     res.status(200).send('Data received and saved.');
