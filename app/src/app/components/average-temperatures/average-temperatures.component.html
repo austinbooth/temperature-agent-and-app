@@ -1,3 +1,10 @@
 <a href="/temperature/recent">View the temperatures for the last 5 minutes</a>
 <h2>Average Temperatures</h2>
-<app-line-chart [chartData]="chartData"></app-line-chart>
+<div>
+  <label for="startDate">Start Date:</label>
+  <input id="startDate" type="date" [(ngModel)]="startDate" (ngModelChange)="onDateChange()" />
+
+  <label for="endDate">End Date:</label>
+  <input id="endDate" type="date" [(ngModel)]="endDate" (ngModelChange)="onDateChange()" />
+</div>
+<app-line-chart *ngIf="startDate.length && endDate.length" [chartData]="chartData"></app-line-chart>

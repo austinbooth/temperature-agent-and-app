@@ -2,23 +2,35 @@ import { Component } from '@angular/core';
 import { TemperatureService } from '../../services/temperature/temperature.service';
 import AverageTemperature from '../../types/AverageTemperature';
 import ChartData from '../../types/ChartData';
-import { LineChartComponent} from '../line-chart/line-chart.component';
+import { LineChartComponent } from '../line-chart/line-chart.component';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-average-temperatures',
   standalone: true,
-  imports: [LineChartComponent],
+  imports: [LineChartComponent, FormsModule, NgIf],
   templateUrl: './average-temperatures.component.html',
-  styleUrl: './average-temperatures.component.scss'
+  styleUrls: ['./average-temperatures.component.scss']
 })
 export class AverageTemperaturesComponent {
+  startDate: string = '';
+  endDate: string = '';
   chartData: ChartData[] = [];
 
-  constructor(private temperatureService: TemperatureService) {
+  constructor(private temperatureService: TemperatureService) { }
+
+  onDateChange(): void {
+    if (this.startDate && this.endDate) {
+      this.fetchAverageData();
+    }
+  }
+
+  fetchAverageData(): void {
     this.temperatureService.getAverageData({
       deviceId: '1234',
-      startDate: '11-1-2024',
-      endDate: '11-4-2024',
+      startDate: this.startDate,
+      endDate: this.endDate,
     }).subscribe((data: AverageTemperature[]) => {
       this.chartData = [
         {
