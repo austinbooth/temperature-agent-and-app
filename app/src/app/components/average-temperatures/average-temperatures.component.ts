@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TemperatureService } from '../../services/temperature/temperature.service';
 import AverageTemperature from '../../types/AverageTemperature';
 import ChartData from '../../types/ChartData';
+import { LineChartComponent} from '../line-chart/line-chart.component';
 
 @Component({
   selector: 'app-average-temperatures',
   standalone: true,
-  imports: [NgxChartsModule],
+  imports: [LineChartComponent],
   templateUrl: './average-temperatures.component.html',
   styleUrl: './average-temperatures.component.scss'
 })

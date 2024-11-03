@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { TemperatureService } from '../../services/temperature/temperature.service';
 import Temperature from '../../types/Temperature';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import ChartData from '../../types/ChartData';
+import { LineChartComponent} from '../line-chart/line-chart.component';
 
 @Component({
   selector: 'app-recent-temperatures',
   standalone: true,
-  imports: [NgxChartsModule],
+  imports: [LineChartComponent],
   templateUrl: './recent-temperatures.component.html',
   styleUrl: './recent-temperatures.component.scss'
 })
