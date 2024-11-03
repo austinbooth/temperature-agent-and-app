@@ -2,14 +2,7 @@ import { Component } from '@angular/core';
 import { TemperatureService } from '../../services/temperature/temperature.service';
 import Temperature from '../../types/Temperature';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-
-type ChartData = {
-  name: string;
-  series: {
-    name: string;
-    value: number;
-  }[];
-};
+import ChartData from '../../types/ChartData';
 
 @Component({
   selector: 'app-recent-temperatures',
