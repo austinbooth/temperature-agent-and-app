@@ -1,0 +1,16 @@
+{
+  "name": "temperature-agent-and-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "devInstall": "cd server && npm install && cd ../agent && npm install && cd ../app && npm install",
+    "dev": "concurrently \"cd server && npm run dev\" \"cd agent && npm run start\" \"cd app && ng serve --open\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
