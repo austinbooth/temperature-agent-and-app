@@ -30,7 +30,7 @@ export class AverageTemperaturesComponent {
     this.temperatureService.getAverageData({
       deviceId: '1234',
       startDate: this.startDate,
-      endDate: this.endDate,
+      endDate: `${this.endDate}T23:59:59.999Z`,
     }).subscribe((data: AverageTemperature[]) => {
       this.chartData = [
         {
