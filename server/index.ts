@@ -6,6 +6,11 @@ import getAverageTemperaturesController from './controllers/getAverageTemperatur
 const app = express();
 app.use(express.json());
 
+const cors = require('cors');
+app.use(cors({
+    origin: 'http://localhost:4200' // frontend origin
+}));
+
 app.post('/api/temperature', saveTempController);
 
 app.get('/api/temperature/recent/:deviceId', getLast5MinsDataController);
