@@ -14,16 +14,25 @@ type GetAverageDataParams = {
   providedIn: 'root'
 })
 export class TemperatureService {
+  private readonly baseUrl = 'https://localhost:5555/api/temperature';
+
   constructor(private http: HttpClient) {}
 
   getRecentData(deviceId: string): Observable<Temperature[]> {
-    return this.http.get<Temperature[]>(`http://localhost:5555/api/temperature/recent/${deviceId}`);
+    const options = { withCredentials: false };
+    return this.http.get<Temperature[]>(`${this.baseUrl}/recent/${deviceId}`, options);
   }
 
   getAverageData({deviceId, startDate, endDate}: GetAverageDataParams): Observable<AverageTemperature[]> {
     const params = new HttpParams()
       .set('startDate', startDate)
       .set('endDate', endDate);
-    return this.http.get<AverageTemperature[]>(`http://localhost:5555/api/temperature/average/${deviceId}`, { params });
+    
+    const options = { 
+      params,
+      withCredentials: false
+    };
+    
+    return this.http.get<AverageTemperature[]>(`${this.baseUrl}/average/${deviceId}`, options);
   }
 }

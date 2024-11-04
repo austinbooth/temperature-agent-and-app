@@ -1,4 +1,7 @@
 import express from 'express';
+import https from 'https';
+import fs from 'fs';
+
 import saveTempController from './controllers/saveTemp.controller';
 import getLast5MinsDataController from './controllers/getLast5MinsData.controller';
 import getAverageTemperaturesController from './controllers/getAverageTemperatures.controller';
@@ -12,12 +15,15 @@ app.use(cors({
 }));
 
 app.post('/api/temperature', saveTempController);
-
 app.get('/api/temperature/recent/:deviceId', getLast5MinsDataController);
-
 app.get('/api/temperature/average/:deviceId', getAverageTemperaturesController);
 
+const options = {
+  key: fs.readFileSync('../key.pem'),
+  cert: fs.readFileSync('../cert.pem'),
+};
+
 const PORT = 5555;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+https.createServer(options, app).listen(PORT, () => {
+  console.log(`HTTPS Server is running on https://localhost:${PORT}`);
 });
