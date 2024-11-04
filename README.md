@@ -43,7 +43,7 @@ This should run the temperature agent, server and frontend app, and open a brows
 
 ## HTTPS
 
-Initially the browser might now allow the frontend to connect to the server because of the self-signed certificate.
+Initially the browser might not allow the frontend to connect to the server because of the self-signed certificate.
 
 To allow this open `https://localhost:5555` in the browser and accept the certificate. You will see a security warning, click on "Advanced" and then "Proceed to localhost (unsafe)".
 
